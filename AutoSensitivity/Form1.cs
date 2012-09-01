@@ -13,6 +13,28 @@ namespace AutoSensitivity
         private bool _isTouchpadOnly = true;
         private bool _canClose = false;
 
+        private void DetectInputDevices()
+        {
+            int count = 0;
+            IntPtr devinfo = Win32.SetupDiGetClassDevs(
+                ref Win32.GUID_DEVCLASS_MOUSE,
+                IntPtr.Zero,
+                IntPtr.Zero,
+                Win32.DIGCF_PRESENT);
+            Win32.SP_DEVINFO_DATA devInfoSet =
+                new Win32.SP_DEVINFO_DATA
+                {
+                    cbSize = Marshal.SizeOf(typeof(Win32.SP_DEVINFO_DATA))
+                };
+
+            while (Win32.SetupDiEnumDeviceInfo(devinfo, count, ref devInfoSet))
+            {
+                count++;
+            }
+            _isTouchpadOnly = count <= 1;
+            labelTouchpadMouseStatus.Text = _isTouchpadOnly ? Resources.TouchpadOnly : Resources.TouchpadAdnMouse;
+        }
+
         private void InitSpeeds()
         {
             uint speed = GetMouseSpeed();
@@ -20,7 +42,9 @@ namespace AutoSensitivity
             mouseBar.Value = Settings.Default.MouseSpeed > 0 ? Settings.Default.MouseSpeed : (int)speed;
 
             SetSpeed(_isTouchpadOnly ? touchpadBar.Value : mouseBar.Value);
-        } 
+
+            Debug.WriteLine("InitSpeeds - Touchpad only = " + _isTouchpadOnly);
+        }
 
         private static bool IsRunningAtStartup()
         {
@@ -31,7 +55,7 @@ namespace AutoSensitivity
                 if (rkApp == null)
                 {
                     return false;
-                }     
+                }
                 if (rkApp.GetValue("AutoSensitivity") != null)
                 {
                     return true;
@@ -45,68 +69,16 @@ namespace AutoSensitivity
             return false;
         }
 
-        /*private static bool SetRunAtStartup(bool setStarting)
-        {           
-            try
-            {
-                RegistryKey rkApp = Registry.CurrentUser.OpenSubKey(
-                    "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
-                if (rkApp==null)
-                {                    
-                    return false;
-                }
-                if (setStarting)
-                {                   
-                    rkApp.SetValue("AutoSensitivity", Application.ExecutablePath.ToString());
-                } else
-                {
-                    if (rkApp.GetValue("AutoSensitivity") != null)
-                    {
-                        rkApp.DeleteValue("AutoSensitivity", false);
-                    }
-                }
-            }
-            catch
-            {
-                return false;
-            }
-
-            return true;
-        }*/
-
         private void InitSettings()
         {
-           
+            DetectInputDevices();
 
-            int count = 0;
-            IntPtr devinfo = Win32.SetupDiGetClassDevs(
-            ref Win32.GUID_DEVCLASS_MOUSE,
-            IntPtr.Zero,
-            IntPtr.Zero,
-            Win32.DIGCF_PRESENT);
-            Win32.SP_DEVINFO_DATA devInfoSet =
-            new Win32.SP_DEVINFO_DATA
-                {
-                    cbSize = Marshal.SizeOf(typeof (Win32.SP_DEVINFO_DATA))
-                };
-
-            //List<string> devices = new List<string>();
-            while (Win32.SetupDiEnumDeviceInfo(devinfo, count,
-            ref devInfoSet))
-            {
-                count++;
-                //devices.Add(devInfoSet.DevInst.ToString());
-            }
-            _isTouchpadOnly = count <= 1;
-            label1.Text = count <= 1 ? Resources.TouchpadOnly: Resources.TouchpadAdnMouse;
             runAtStartupCB.Checked = IsRunningAtStartup();//Settings.Default.RunAtStartup;
             startMinimizedCB.Checked = Settings.Default.StartMinimized;
             if (Settings.Default.StartMinimized)
             {
-                
                 Hide();
-            }        
-            
+            }
         }
 
         public Form1()
@@ -119,55 +91,33 @@ namespace AutoSensitivity
 
         private static uint GetMouseSpeed()
         {
-            uint mNMouse = 0;
+            var mNMouse = new IntPtr(0);
             bool nResult = Win32.SystemParametersInfoGet(Win32.SPI_GETMOUSESPEED, 0, ref mNMouse, 0);
 
-            return mNMouse;
-        }      
+            return (uint)mNMouse.ToInt32();
+        }
 
-       
-
-      
-
-
-        void CheckDevice(ref Message msg)
+        void UpdatePointerSpeed()
         {
-            IntPtr devinfo = Win32.SetupDiGetClassDevs(ref
-            Win32.GUID_DEVCLASS_MOUSE, IntPtr.Zero, IntPtr.Zero, Win32.DIGCF_PRESENT);
-            Win32.SP_DEVINFO_DATA devInfoSet = new Win32.SP_DEVINFO_DATA
-            {
-                cbSize = Marshal.SizeOf(typeof(Win32.SP_DEVINFO_DATA))
-            };
-            if (Win32.SetupDiEnumDeviceInfo(devinfo, 0, ref devInfoSet))
-            {
-                int wParam = (int)msg.WParam;
-                if (wParam == Win32.DBT_DEVICEARRIVAL)
-                {
-                    _isTouchpadOnly = false;
-                    label1.Text = Resources.TouchpadAdnMouse;
-                    SetSpeed(mouseBar.Value);
-                    //notifyIcon1.ShowBalloonTip(1000, "AutoSensitivity", "Mouse connected", ToolTipIcon.Info);
-                }
-                else if (wParam == Win32.DBT_DEVICEREMOVECOMPLETE)
-                {
-                    _isTouchpadOnly = true;
-                    label1.Text = Resources.TouchpadOnly;
-                    SetSpeed(touchpadBar.Value);
-                    //notifyIcon1.ShowBalloonTip(1000, "AutoSensitivity", "Mouse disconnected", ToolTipIcon.Info);
-                } 
-            }
+            DetectInputDevices();
+            InitSpeeds();
         }
 
         protected override void WndProc(ref Message m)
         {
             switch (m.Msg)
             {
-                case Win32.WM_DEVICECHANGE: CheckDevice(ref m); break;
+                case Win32.WM_DEVICECHANGE:
+                    UpdatePointerSpeed();
+                    break;
+                case Win32.WM_POWERBROADCAST:
+                    UpdatePointerSpeed();
+                    break;
             }
             base.WndProc(ref m);
         }
 
-       
+
 
         void RegisterHidNotification()
         {
@@ -184,14 +134,14 @@ namespace AutoSensitivity
             IntPtr r = Win32.RegisterDeviceNotification(Handle, buffer, Win32.DEVICE_NOTIFY_WINDOW_HANDLE | Win32.DEVICE_NOTIFY_ALL_INTERFACE_CLASSES);
             if (r == IntPtr.Zero)
             {
-                label1.Text = Win32.GetLastError().ToString();
+                labelTouchpadMouseStatus.Text = Win32.GetLastError().ToString();
             }
         }
 
-        private void Button1Click(object sender, EventArgs e)
+        private void ButtonTouchpadGetCurrent(object sender, EventArgs e)
         {
             uint speed = GetMouseSpeed();
-            touchpadBar.Value = (int) speed;
+            touchpadBar.Value = (int)speed;
         }
 
         private void LinkLabel1LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -205,11 +155,11 @@ namespace AutoSensitivity
             System.Diagnostics.Process.Start("http://autosensitivity.codeplex.com");
         }
 
-        private void Button3Click(object sender, EventArgs e)
+        private void ButtonTouchpadApply(object sender, EventArgs e)
         {
             Settings.Default.TrackpointSpeed = touchpadBar.Value;
             Settings.Default.Save();
-            
+
             if (_isTouchpadOnly)
             {
                 SetSpeed(touchpadBar.Value);
@@ -221,26 +171,26 @@ namespace AutoSensitivity
             bool res = Win32.SystemParametersInfoSet(
                 Win32.SPI_SETMOUSESPEED,
                 0,
-                (uint)speed,
+                new IntPtr(speed),
                 0);
 
             return res;
         }
 
-        private void Button4Click(object sender, EventArgs e)
-        {          
+        private void ButtonMouseApply(object sender, EventArgs e)
+        {
             Settings.Default.MouseSpeed = mouseBar.Value;
             Settings.Default.Save();
 
             if (!_isTouchpadOnly)
             {
-                SetSpeed(touchpadBar.Value);
+                SetSpeed(mouseBar.Value);
             }
         }
 
-      
 
-        private void Button2Click(object sender, EventArgs e)
+
+        private void ButtonMouseGetCurrent(object sender, EventArgs e)
         {
             uint speed = GetMouseSpeed();
             mouseBar.Value = (int)speed;
@@ -281,7 +231,7 @@ namespace AutoSensitivity
             Hide();
         }
 
-       
+
 
         private void ToolStripMenuItem2Click(object sender, EventArgs e)
         {
@@ -304,7 +254,8 @@ namespace AutoSensitivity
                 {
                     MessageBox.Show(Resources.NewVersionNo, Resources.Updater);
                 }
-            } catch
+            }
+            catch
             {
                 MessageBox.Show(Resources.NewVersionNo, Resources.Updater);
             }
@@ -330,14 +281,14 @@ namespace AutoSensitivity
             }*/
         }
 
-       
 
-       
+
+
         private void ToolStripMenuItem3Click1(object sender, EventArgs e)
         {
             System.Diagnostics.Process.Start(
            "https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=WND2WGRGBLQVE&lc=SK&currency_code=EUR&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted");
-       
+
         }
 
         private void RunAtStartupCbClick(object sender, EventArgs e)
@@ -352,7 +303,7 @@ namespace AutoSensitivity
             {
                 Process.Start(
                new ProcessStartInfo
-               {                 
+               {
                    FileName = typeof(setStartup.Program).Assembly.Location,
                    UseShellExecute = true,
                    CreateNoWindow = true, // Optional....
@@ -373,7 +324,7 @@ namespace AutoSensitivity
                }).WaitForExit();
         }
 
-        private void button6_Click(object sender, EventArgs e)
+        private void RefreshClick(object sender, EventArgs e)
         {
             Refresh(true);
         }
@@ -394,14 +345,17 @@ namespace AutoSensitivity
             if (show)
             {
                 Show();
-            } else
+            }
+            else
             {
                 Hide();
             }
         }
 
-       
+        private void label4_Click(object sender, EventArgs e)
+        {
 
-       
+        }
+
     }
 }

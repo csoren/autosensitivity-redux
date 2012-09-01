@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2008
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoSensitivity", "AutoSensitivity\AutoSensitivity.csproj", "{03971DD5-D75B-49B4-BBA3-836B00D68CCB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "setStartup", "setStartup\setStartup.csproj", "{4CD64EBC-A221-489B-891B-7F5F2ACBD772}"

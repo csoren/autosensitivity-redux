@@ -30,25 +30,26 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            this.label1 = new System.Windows.Forms.Label();
+            this.labelTouchpadMouseStatus = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.buttonMouseApply = new System.Windows.Forms.Button();
+            this.buttonTouchpadApply = new System.Windows.Forms.Button();
+            this.buttonMouseGetCurrent = new System.Windows.Forms.Button();
             this.mouseBar = new System.Windows.Forms.TrackBar();
             this.label3 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.buttonTouchpadGetCurrent = new System.Windows.Forms.Button();
             this.touchpadBar = new System.Windows.Forms.TrackBar();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.linkLabel2 = new System.Windows.Forms.LinkLabel();
-            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
+            this.linkLabelProgram = new System.Windows.Forms.LinkLabel();
+            this.linkLabelDonate = new System.Windows.Forms.LinkLabel();
             this.label4 = new System.Windows.Forms.Label();
-            this.button5 = new System.Windows.Forms.Button();
+            this.buttonMinimize = new System.Windows.Forms.Button();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
@@ -57,8 +58,7 @@
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.runAtStartupCB = new System.Windows.Forms.CheckBox();
             this.startMinimizedCB = new System.Windows.Forms.CheckBox();
-            this.button6 = new System.Windows.Forms.Button();
-            this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripMenuItem();
+            this.buttonRefresh = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.mouseBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.touchpadBar)).BeginInit();
@@ -67,61 +67,61 @@
             this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
-            // label1
+            // labelTouchpadMouseStatus
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(5, 288);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(80, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Touchpad Only";
+            this.labelTouchpadMouseStatus.AutoSize = true;
+            this.labelTouchpadMouseStatus.Location = new System.Drawing.Point(13, 356);
+            this.labelTouchpadMouseStatus.Name = "labelTouchpadMouseStatus";
+            this.labelTouchpadMouseStatus.Size = new System.Drawing.Size(80, 13);
+            this.labelTouchpadMouseStatus.TabIndex = 0;
+            this.labelTouchpadMouseStatus.Text = "Touchpad Only";
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.button4);
-            this.groupBox1.Controls.Add(this.button3);
-            this.groupBox1.Controls.Add(this.button2);
+            this.groupBox1.Controls.Add(this.buttonMouseApply);
+            this.groupBox1.Controls.Add(this.buttonTouchpadApply);
+            this.groupBox1.Controls.Add(this.buttonMouseGetCurrent);
             this.groupBox1.Controls.Add(this.mouseBar);
             this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.button1);
+            this.groupBox1.Controls.Add(this.buttonTouchpadGetCurrent);
             this.groupBox1.Controls.Add(this.touchpadBar);
             this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Location = new System.Drawing.Point(-2, 0);
+            this.groupBox1.Location = new System.Drawing.Point(6, 0);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(364, 149);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Sensitivities";
             // 
-            // button4
+            // buttonMouseApply
             // 
-            this.button4.Location = new System.Drawing.Point(281, 103);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(75, 23);
-            this.button4.TabIndex = 7;
-            this.button4.Text = "Apply";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.Button4Click);
+            this.buttonMouseApply.Location = new System.Drawing.Point(281, 103);
+            this.buttonMouseApply.Name = "buttonMouseApply";
+            this.buttonMouseApply.Size = new System.Drawing.Size(75, 23);
+            this.buttonMouseApply.TabIndex = 7;
+            this.buttonMouseApply.Text = "Apply";
+            this.buttonMouseApply.UseVisualStyleBackColor = true;
+            this.buttonMouseApply.Click += new System.EventHandler(this.ButtonMouseApply);
             // 
-            // button3
+            // buttonTouchpadApply
             // 
-            this.button3.Location = new System.Drawing.Point(281, 37);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
-            this.button3.TabIndex = 6;
-            this.button3.Text = "Apply";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.Button3Click);
+            this.buttonTouchpadApply.Location = new System.Drawing.Point(281, 37);
+            this.buttonTouchpadApply.Name = "buttonTouchpadApply";
+            this.buttonTouchpadApply.Size = new System.Drawing.Size(75, 23);
+            this.buttonTouchpadApply.TabIndex = 6;
+            this.buttonTouchpadApply.Text = "Apply";
+            this.buttonTouchpadApply.UseVisualStyleBackColor = true;
+            this.buttonTouchpadApply.Click += new System.EventHandler(this.ButtonTouchpadApply);
             // 
-            // button2
+            // buttonMouseGetCurrent
             // 
-            this.button2.Location = new System.Drawing.Point(199, 103);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 5;
-            this.button2.Text = "Get Current";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.Button2Click);
+            this.buttonMouseGetCurrent.Location = new System.Drawing.Point(199, 103);
+            this.buttonMouseGetCurrent.Name = "buttonMouseGetCurrent";
+            this.buttonMouseGetCurrent.Size = new System.Drawing.Size(75, 23);
+            this.buttonMouseGetCurrent.TabIndex = 5;
+            this.buttonMouseGetCurrent.Text = "Get Current";
+            this.buttonMouseGetCurrent.UseVisualStyleBackColor = true;
+            this.buttonMouseGetCurrent.Click += new System.EventHandler(this.ButtonMouseGetCurrent);
             // 
             // mouseBar
             // 
@@ -140,15 +140,15 @@
             this.label3.TabIndex = 3;
             this.label3.Text = "Mouse";
             // 
-            // button1
+            // buttonTouchpadGetCurrent
             // 
-            this.button1.Location = new System.Drawing.Point(199, 37);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "Get Current";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.Button1Click);
+            this.buttonTouchpadGetCurrent.Location = new System.Drawing.Point(199, 37);
+            this.buttonTouchpadGetCurrent.Name = "buttonTouchpadGetCurrent";
+            this.buttonTouchpadGetCurrent.Size = new System.Drawing.Size(75, 23);
+            this.buttonTouchpadGetCurrent.TabIndex = 2;
+            this.buttonTouchpadGetCurrent.Text = "Get Current";
+            this.buttonTouchpadGetCurrent.UseVisualStyleBackColor = true;
+            this.buttonTouchpadGetCurrent.Click += new System.EventHandler(this.ButtonTouchpadGetCurrent);
             // 
             // touchpadBar
             // 
@@ -169,68 +169,68 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.label5);
-            this.groupBox2.Controls.Add(this.linkLabel2);
-            this.groupBox2.Controls.Add(this.linkLabel1);
+            this.groupBox2.Controls.Add(this.linkLabelProgram);
+            this.groupBox2.Controls.Add(this.linkLabelDonate);
             this.groupBox2.Controls.Add(this.label4);
-            this.groupBox2.Location = new System.Drawing.Point(-2, 209);
+            this.groupBox2.Controls.Add(this.label5);
+            this.groupBox2.Location = new System.Drawing.Point(6, 209);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(364, 61);
+            this.groupBox2.Size = new System.Drawing.Size(364, 130);
             this.groupBox2.TabIndex = 2;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "About";
             // 
             // label5
             // 
-            this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label5.Location = new System.Drawing.Point(9, 38);
+            this.label5.Location = new System.Drawing.Point(10, 75);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(257, 13);
+            this.label5.Size = new System.Drawing.Size(342, 35);
             this.label5.TabIndex = 3;
-            this.label5.Text = "If you like this utility, please support me and";
+            this.label5.Text = "If you like this utility, please consider donating to the original author";
             // 
-            // linkLabel2
+            // linkLabelProgram
             // 
-            this.linkLabel2.AutoSize = true;
-            this.linkLabel2.Location = new System.Drawing.Point(138, 20);
-            this.linkLabel2.Name = "linkLabel2";
-            this.linkLabel2.Size = new System.Drawing.Size(173, 13);
-            this.linkLabel2.TabIndex = 2;
-            this.linkLabel2.TabStop = true;
-            this.linkLabel2.Text = "http://autosensitivity.codeplex.com";
-            this.linkLabel2.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinkLabel2LinkClicked);
+            this.linkLabelProgram.AutoSize = true;
+            this.linkLabelProgram.Location = new System.Drawing.Point(10, 53);
+            this.linkLabelProgram.Name = "linkLabelProgram";
+            this.linkLabelProgram.Size = new System.Drawing.Size(232, 13);
+            this.linkLabelProgram.TabIndex = 2;
+            this.linkLabelProgram.TabStop = true;
+            this.linkLabelProgram.Text = "https://github.com/csoren/autosensitivity-redux";
+            this.linkLabelProgram.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinkLabel2LinkClicked);
             // 
-            // linkLabel1
+            // linkLabelDonate
             // 
-            this.linkLabel1.AutoSize = true;
-            this.linkLabel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.linkLabel1.Location = new System.Drawing.Point(265, 38);
-            this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(46, 13);
-            this.linkLabel1.TabIndex = 1;
-            this.linkLabel1.TabStop = true;
-            this.linkLabel1.Text = "donate";
-            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinkLabel1LinkClicked);
+            this.linkLabelDonate.AutoSize = true;
+            this.linkLabelDonate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.linkLabelDonate.Location = new System.Drawing.Point(10, 107);
+            this.linkLabelDonate.Name = "linkLabelDonate";
+            this.linkLabelDonate.Size = new System.Drawing.Size(48, 13);
+            this.linkLabelDonate.TabIndex = 1;
+            this.linkLabelDonate.TabStop = true;
+            this.linkLabelDonate.Text = "Donate";
+            this.linkLabelDonate.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinkLabel1LinkClicked);
             // 
             // label4
             // 
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(10, 20);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(90, 13);
+            this.label4.Size = new System.Drawing.Size(151, 26);
             this.label4.TabIndex = 0;
-            this.label4.Text = "2011 Igor Kulman";
+            this.label4.Text = "2011 - Igor Kulman\r\n2012 - Carsten Elton Sørensen";
+            this.label4.Click += new System.EventHandler(this.label4_Click);
             // 
-            // button5
+            // buttonMinimize
             // 
-            this.button5.Location = new System.Drawing.Point(275, 278);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(75, 23);
-            this.button5.TabIndex = 3;
-            this.button5.Text = "Minimize";
-            this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.Button5Click);
+            this.buttonMinimize.Location = new System.Drawing.Point(283, 346);
+            this.buttonMinimize.Name = "buttonMinimize";
+            this.buttonMinimize.Size = new System.Drawing.Size(75, 23);
+            this.buttonMinimize.TabIndex = 3;
+            this.buttonMinimize.Text = "Minimize";
+            this.buttonMinimize.UseVisualStyleBackColor = true;
+            this.buttonMinimize.Click += new System.EventHandler(this.Button5Click);
             // 
             // notifyIcon1
             // 
@@ -252,43 +252,50 @@
             this.toolStripMenuItem1,
             this.exitToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(124, 126);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(114, 126);
             // 
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
             this.openToolStripMenuItem.Text = "Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.OpenToolStripMenuItemClick);
+            // 
+            // toolStripMenuItem5
+            // 
+            this.toolStripMenuItem5.Name = "toolStripMenuItem5";
+            this.toolStripMenuItem5.Size = new System.Drawing.Size(113, 22);
+            this.toolStripMenuItem5.Text = "Refresh";
+            this.toolStripMenuItem5.Click += new System.EventHandler(this.toolStripMenuItem5_Click);
             // 
             // toolStripMenuItem4
             // 
             this.toolStripMenuItem4.Name = "toolStripMenuItem4";
-            this.toolStripMenuItem4.Size = new System.Drawing.Size(120, 6);
+            this.toolStripMenuItem4.Size = new System.Drawing.Size(110, 6);
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(123, 22);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(113, 22);
             this.toolStripMenuItem2.Text = "Update";
             this.toolStripMenuItem2.Click += new System.EventHandler(this.ToolStripMenuItem2Click);
             // 
             // toolStripMenuItem3
             // 
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(123, 22);
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(113, 22);
             this.toolStripMenuItem3.Text = "Donate";
             this.toolStripMenuItem3.Click += new System.EventHandler(this.ToolStripMenuItem3Click1);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(120, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(110, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.ExitToolStripMenuItemClick);
             // 
@@ -296,7 +303,7 @@
             // 
             this.groupBox3.Controls.Add(this.runAtStartupCB);
             this.groupBox3.Controls.Add(this.startMinimizedCB);
-            this.groupBox3.Location = new System.Drawing.Point(-2, 152);
+            this.groupBox3.Location = new System.Drawing.Point(6, 152);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(364, 51);
             this.groupBox3.TabIndex = 4;
@@ -325,40 +332,34 @@
             this.startMinimizedCB.UseVisualStyleBackColor = true;
             this.startMinimizedCB.CheckedChanged += new System.EventHandler(this.StartMinimizedCbCheckedChanged);
             // 
-            // button6
+            // buttonRefresh
             // 
-            this.button6.Location = new System.Drawing.Point(197, 277);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(75, 23);
-            this.button6.TabIndex = 5;
-            this.button6.Text = "Refresh";
-            this.button6.UseVisualStyleBackColor = true;
-            this.button6.Click += new System.EventHandler(this.button6_Click);
-            // 
-            // toolStripMenuItem5
-            // 
-            this.toolStripMenuItem5.Name = "toolStripMenuItem5";
-            this.toolStripMenuItem5.Size = new System.Drawing.Size(123, 22);
-            this.toolStripMenuItem5.Text = "Refresh";
-            this.toolStripMenuItem5.Click += new System.EventHandler(this.toolStripMenuItem5_Click);
+            this.buttonRefresh.Location = new System.Drawing.Point(205, 345);
+            this.buttonRefresh.Name = "buttonRefresh";
+            this.buttonRefresh.Size = new System.Drawing.Size(75, 23);
+            this.buttonRefresh.TabIndex = 5;
+            this.buttonRefresh.Text = "Refresh";
+            this.buttonRefresh.UseVisualStyleBackColor = true;
+            this.buttonRefresh.Click += new System.EventHandler(this.RefreshClick);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(362, 313);
-            this.Controls.Add(this.button6);
+            this.ClientSize = new System.Drawing.Size(377, 377);
+            this.Controls.Add(this.buttonRefresh);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
-            this.Controls.Add(this.button5);
+            this.Controls.Add(this.buttonMinimize);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.labelTouchpadMouseStatus);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "Form1";
             this.Text = "AutoSensitivity";
-            this.Load += new System.EventHandler(this.Form1_Load);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.Resize += new System.EventHandler(this.Form1_Resize);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -376,22 +377,22 @@
 
         #endregion
 
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label labelTouchpadMouseStatus;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button buttonMouseGetCurrent;
         private System.Windows.Forms.TrackBar mouseBar;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button buttonTouchpadGetCurrent;
         private System.Windows.Forms.TrackBar touchpadBar;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button buttonMouseApply;
+        private System.Windows.Forms.Button buttonTouchpadApply;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.LinkLabel linkLabel2;
-        private System.Windows.Forms.LinkLabel linkLabel1;
+        private System.Windows.Forms.LinkLabel linkLabelProgram;
+        private System.Windows.Forms.LinkLabel linkLabelDonate;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button buttonMinimize;
         private System.Windows.Forms.NotifyIcon notifyIcon1;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
@@ -403,7 +404,7 @@
         private System.Windows.Forms.CheckBox startMinimizedCB;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem3;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem4;
-        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.Button buttonRefresh;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem5;
     }
 }

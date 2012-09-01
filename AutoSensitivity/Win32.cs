@@ -6,7 +6,10 @@ namespace AutoSensitivity
     class Win32
     {
         public const int
+        WM_POWERBROADCAST = 0x0218;
+        public const int
         WM_DEVICECHANGE = 0x0219;
+
         public const int
         DBT_DEVICEARRIVAL = 0x8000,
         DBT_DEVICEREMOVECOMPLETE = 0x8004;
@@ -32,10 +35,10 @@ namespace AutoSensitivity
         public static extern bool SetupDiEnumDeviceInfo(IntPtr DeviceInfoSet, int Supplies, ref SP_DEVINFO_DATA DeviceInfoData);
 
         [DllImport("user32.dll", EntryPoint = "SystemParametersInfo", SetLastError = true)]
-        public static extern bool SystemParametersInfoGet(uint action, uint param, ref uint vparam, uint init);
+        public static extern bool SystemParametersInfoGet(uint action, uint param, ref IntPtr vparam, uint init);
 
         [DllImport("user32.dll", EntryPoint = "SystemParametersInfo", SetLastError = true)]
-        public static extern bool SystemParametersInfoSet(uint action, uint param, uint vparam, uint init);
+        public static extern bool SystemParametersInfoSet(uint action, uint param, IntPtr vparam, uint init);
 
         /*[StructLayout(LayoutKind.Sequential)]
         public struct SP_DEVINFO_DATA
